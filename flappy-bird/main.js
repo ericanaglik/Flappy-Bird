@@ -6,6 +6,9 @@ var mainState = {
 
         // That's where we load the images and sounds
 
+        // Load the bird sprite
+        game.load.image('bird', 'assets/bird.png');
+
     },
 
     create: function() {
@@ -14,6 +17,27 @@ var mainState = {
 
         // Here we set up the game, display sprites, etc
 
+        // Change the background color of the game to blue
+        game.state.backgroundColor = '#71c5cf';
+
+        // Set the physics system
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        // Display the bird at the postion x=100 and y=245
+        this.bird = game.add.sprite(100, 245, 'bird');
+
+        // Add physics to the bird
+        // Needed for: movements, gravity, collisions, etc.
+        game.physics.arcade.enable(this.bird);
+
+        // Add gravity to the bird to make it fall
+        this.bird.body.gravity.y = 1000;
+
+        // Call the 'jump' function when the spacekey is hit
+        var spaceKey = game.input.keyboard.addKey(
+            Phaser.Keyboard.SPACEBAR);
+        spaceKey.onDown.add(this.jump, this);
+
     },
 
     update: function() {
@@ -21,6 +45,11 @@ var mainState = {
         // This function is called 60 times per second
 
         // It contains the game's logic 
+
+        // If the bird is out of the screen (too high or too low)
+        // Call the 'restartGame' function
+        if (this.bird.y < 0 || this.bird.y > 490)
+            this.restartGame();
 
     },
 };
