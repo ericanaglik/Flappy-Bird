@@ -17,6 +17,11 @@ var mainState = {
 
         // Here we set up the game, display sprites, etc
 
+        this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
+
+        // Create an empty group
+        this.pipes = game.add.group();
+
         // Change the background color of the game to blue
         game.stage.backgroundColor = '#71c5cf';
 
@@ -64,6 +69,38 @@ var mainState = {
         // Start the 'main' state, which restarts the game
         game.state.start('main');
     },
+
+    addOnePipe: function(x, y) {
+        // Create a pipe at the postion x and y 
+        var pipe = game.add.sprite(x, y, 'pipe');
+
+        // Add the pipe to our previously created group
+        this.pipes.add(pipe);
+
+        // Enable physics on the pipe
+        game.physics.arcade.enable(pipe);
+
+        // Add velocity to the pipe to make it move left
+        pipe.body.velocity.x = -200;
+
+        // Automatically kill the pipe when its no longer visible
+        pipe.checkWorldBounds = true;
+        pipe.outOfBoundsKill = true;
+    },
+
+    addRowOfPipes: function() {
+        // Randomly pick a number between 1 and 5
+
+        // This will be the hole postion 
+        var hole = Math.floor(Math.random() * 5) + 1;
+
+        // Add the 6 pipes
+
+        // With one big hole at the postion 'hole' and 'hole + 1'
+        for (var i = 0; i < 8; i++)
+            if (i != hole && i != hole + 1)
+                this.addOnePipe(400, i * 60 + 10);
+    }, 
 };
 
 // Initialize Phaser, and create a 400px by 490px game
