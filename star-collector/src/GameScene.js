@@ -19,6 +19,7 @@ class GameScene extends Scene {
        this.createPlatforms();
        this.createPlayer();
        this.createCursor();
+       this.createStars();
     }
 
     createPlatforms() {
@@ -86,6 +87,20 @@ class GameScene extends Scene {
             this.player.setVelocityY(-330);
         }
     };
+
+    createStars() {
+        this.stars = this.physics.add.group({
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 0, stepX: 70 }
+        });
+        
+        this.stars.children.iterate((child) => {
+        
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        
+        });
+    }
 }
 
 export default GameScene
