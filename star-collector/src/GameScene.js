@@ -102,7 +102,12 @@ class GameScene extends Scene {
         });
 
         this.physics.add.collider(this.stars, this.platforms);
-    }
+        this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this);
+    };
+
+    collectStar(player, star) {
+        star.disableBody(true, true);
+    };
 }
 
 export default GameScene
