@@ -100,6 +100,8 @@ class GameScene extends Scene {
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
         
         });
+
+        this.physics.add.collider(this.stars, this.platforms);
     }
 }
 
