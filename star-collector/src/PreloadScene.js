@@ -7,10 +7,11 @@ class PreloadScene extends Scene {
     }
 
     preload() {
+        this.load.image('logo', 'assests/logo.png')
         
     }
 
     create() {
-
+        this.add.image(400, 300, 'logo');
     }
 }

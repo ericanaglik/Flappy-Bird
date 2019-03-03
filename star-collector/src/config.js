@@ -1,13 +1,14 @@
 import Phaser from 'phaser'
-import GameScene from './GameScene';
 import PreloadScene from './PreloadScene';
+import GameScene from './GameScene';
+
 
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [PreloadScene, GameScene ],
+    scene: [PreloadScene, GameScene],
     physics: {
         default: 'arcade',
         arcade: {
