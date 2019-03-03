@@ -2,7 +2,7 @@ import { Scene } from 'phaser';
 
 class GameScene extends Scene {
     constructor() {
-        super('game')
+        super('game') // key: game 
         this.score = 0;
         this.gameOver = false;
     }
@@ -37,8 +37,11 @@ class GameScene extends Scene {
        
        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
        this.gameOverText = this.add.text(400, 300, 'Game Over', { fontSize: '64px', fill: '#000' });
+       this.restartText = this.add.text(400, 350, 'Touch Anywhere to Restart', { fontSize: '30px', fill: '#000' });
        this.gameOverText.setOrigin(0.5);
+       this.restartText.setOrigin(0.5);
        this.gameOverText.visible = false;
+       this.restartText.visible = false;
        
     }
 
@@ -176,6 +179,8 @@ class GameScene extends Scene {
 
         this.gameOver = true;
         this.gameOverText.visible = true;
+        this.restartText.visible = true;
+        this.input.on('pointerdown', () => this.scene.start('preload'));
     };
 
     /****************

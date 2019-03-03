@@ -3,7 +3,7 @@ import { Scene } from 'phaser'
 class PreloadScene extends Scene {
 
     constructor() {
-        super('preload')
+        super('preload') // key: preload
     }
 
     preload() {
