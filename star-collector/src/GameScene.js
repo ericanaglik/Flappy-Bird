@@ -28,8 +28,9 @@ class GameScene extends Scene {
        this.createBombs();
 
        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-       this.gameOverText = this.add.text(400, 300, 'Game Over', { fontSize: '32px', fill: '#000' });
+       this.gameOverText = this.add.text(400, 300, 'Game Over', { fontSize: '64px', fill: '#000' });
        this.gameOverText.setOrigin(0.5);
+       this.gameOverText = false;
     }
 
     createPlatforms() {
@@ -129,6 +130,7 @@ class GameScene extends Scene {
         player.anims.play('turn');
 
         this.gameOver = true;
+        this.gameOverText = true;
     };
 
     update() {
