@@ -148,12 +148,12 @@ class GameScene extends Scene {
     hitBomb (player, bomb) {
         this.physics.pause();
 
-        this.player.setTint(0xff0000);
+        player.setTint(0xff0000);
 
-        this.player.anims.play('turn');
+        player.anims.play('turn');
 
         this.gameOver = true;
-    }
+    };
 }
 export default GameScene
 
