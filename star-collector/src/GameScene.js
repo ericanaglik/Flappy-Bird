@@ -7,6 +7,10 @@ class GameScene extends Scene {
         this.gameOver = false;
     }
 
+    /****************
+    *****PRELOAD*****
+    ****************/
+
     preload() {
         this.load.image('sky', 'assets/sky.png');
         this.load.image('ground', 'assets/platform.png');
@@ -17,6 +21,10 @@ class GameScene extends Scene {
             { frameWidth: 32, frameHeight: 48 }
         );
     }
+
+    /****************
+    *****CREATE******
+    ****************/
 
     create() {
        const sky = this.add.image(0, 0, 'sky');
@@ -34,6 +42,10 @@ class GameScene extends Scene {
        
     }
 
+    /****************
+    ****PLATFORMS****
+    ****************/
+
     createPlatforms() {
         this.platforms = this.physics.add.staticGroup();
         this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -42,9 +54,14 @@ class GameScene extends Scene {
         this.platforms.create(750, 220, 'ground');
     };
 
+    /****************
+    *****PLAYER******
+    ****************/
+
     createPlayer() {
         this.player = this.physics.add.sprite(100, 450, 'dude');
-
+        // collision radius
+        this.player.setCircle(13, 2, 22);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.platforms);
@@ -70,9 +87,17 @@ class GameScene extends Scene {
         });
     };
 
+    /****************
+    *****CURSOR******
+    ****************/
+
     createCursor() {
         this.cursors = this.input.keyboard.createCursorKeys();
     };
+
+    /****************
+    ******STARS******
+    ****************/
 
     createStars() {
         this.stars = this.physics.add.group({
@@ -84,12 +109,20 @@ class GameScene extends Scene {
         this.stars.children.iterate((child) => {
         
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+            // collision radius
+            child.setCircle(12);
         
         });
 
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this);
     };
+
+    /****************
+    *****COLLECT*****
+    ******STARS******
+    ****************/
 
     collectStar(player, star) {
         star.disableBody(true, true);
@@ -108,12 +141,18 @@ class GameScene extends Scene {
             var x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
             var bomb = this.bombs.create(x, 16, 'bomb');
+            // bomb collision radius
+            bomb.setCircle(7);
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
 
         };
     };
+
+    /****************
+    ******BOMBS******
+    ****************/
 
     createBombs() {
         this.bombs = this.physics.add.group();
@@ -122,6 +161,11 @@ class GameScene extends Scene {
 
         this.physics.add.collider(this.player, this.bombs, this.hitBomb, null, this);
     };
+
+    /****************
+    *******HIT*******
+    ******BOMBS******
+    ****************/
 
     hitBomb(player, bomb) {
         this.physics.pause();
@@ -133,6 +177,10 @@ class GameScene extends Scene {
         this.gameOver = true;
         this.gameOverText.visible = true;
     };
+
+    /****************
+    *****UPDATE******
+    ****************/
 
     update() {
         if (this.cursors.left.isDown) {
