@@ -1,5 +1,5 @@
 import Phaser, { Game } from 'phaser';
-import GameScene from './GameScene';
+
 
 import { config } from './config';
 
