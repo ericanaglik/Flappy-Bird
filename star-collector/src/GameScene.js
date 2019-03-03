@@ -28,6 +28,8 @@ class GameScene extends Scene {
        this.createBombs();
 
        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+       this.gameOverText = this.add.text(400, 300, 'Game Over', { fontSize: '32px', fill: '#000' });
+       this.gameOverText.setOrigin(0.5);
     }
 
     createPlatforms() {
@@ -70,32 +72,6 @@ class GameScene extends Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     };
 
-    update() {
-        if (this.cursors.left.isDown) {
-
-            this.player.setVelocityX(-160);
-
-            this.player.anims.play('left', true);
-
-        } else if (this.cursors.right.isDown) {
-
-            this.player.setVelocityX(160);
-
-            this.player.anims.play('right', true);
-
-        } else {
-            
-            this.player.setVelocityX(0);
-
-            this.player.anims.play('turn');
-
-        }
-
-        if (this.cursors.up.isDown && this.player.body.touching.down) {
-            this.player.setVelocityY(-330);
-        }
-    };
-
     createStars() {
         this.stars = this.physics.add.group({
             key: 'star',
@@ -127,14 +103,14 @@ class GameScene extends Scene {
 
             });
 
-            const x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+            var x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-            const bomb = this.bombs.create(x, 16, 'bomb');
+            var bomb = this.bombs.create(x, 16, 'bomb');
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
 
-        }
+        };
     };
 
     createBombs() {
@@ -145,7 +121,7 @@ class GameScene extends Scene {
         this.physics.add.collider(this.player, this.bombs, this.hitBomb, null, this);
     };
 
-    hitBomb (player, bomb) {
+    hitBomb(player, bomb) {
         this.physics.pause();
 
         player.setTint(0xff0000);
@@ -153,6 +129,32 @@ class GameScene extends Scene {
         player.anims.play('turn');
 
         this.gameOver = true;
+    };
+
+    update() {
+        if (this.cursors.left.isDown) {
+
+            this.player.setVelocityX(-160);
+
+            this.player.anims.play('left', true);
+
+        } else if (this.cursors.right.isDown) {
+
+            this.player.setVelocityX(160);
+
+            this.player.anims.play('right', true);
+
+        } else {
+            
+            this.player.setVelocityX(0);
+
+            this.player.anims.play('turn');
+
+        }
+
+        if (this.cursors.up.isDown && this.player.body.touching.down) {
+            this.player.setVelocityY(-330);
+        }
     };
 }
 export default GameScene
