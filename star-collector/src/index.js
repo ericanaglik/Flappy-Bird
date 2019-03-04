@@ -1,6 +1,4 @@
-import Phaser, { Game } from 'phaser';
+import { Game } from 'phaser';
+import config from './config';
 
-
-import { config } from './config';
-
-var game = new Game(config);
+const game = new Game(config);
