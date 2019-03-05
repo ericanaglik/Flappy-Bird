@@ -34,6 +34,8 @@ class GameScene extends Scene {
     this.createStars();
     this.createBombs();
 
+    this.score = 0;
+
     this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     this.gameOverText = this.add.text(400, 300, 'Game Over', { fontSize: '64px', fill: '#000' });
     this.restartText = this.add.text(400, 350, 'Touch Anywhere to Restart', { fontSize: '30px', fill: '#000' });
